@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>{{msg}}</p>
+        <p>{{message}}</p>
+        <p>{{messages}}</p>
+        <input v-model="msg">
+        <hr>
+        <input v-model="firstName">
+        <input v-model="lastName">
+        <input v-model="fullName">
+        <p>{{fullName}}</p>
+    </div>
+</body>
+    <script>
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    msg: '今天星期三，天气很热',
+                    messages: '',
+                    firstName: '周',
+                    lastName: '杰伦',
+                }
+            },
+            computed: {
+                message: function(){
+                    return this.msg.slice(0,5)
+                },
+                fullName: function () { 
+                    return this.firstName + " " + this.lastName
+                 }
+            },
+            watch: {
+                msg: function (val) { 
+                    this.messages = this.message + val
+                },
+            }
+        })
+    </script>
+</html>

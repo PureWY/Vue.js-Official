@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <slot-demo>
+            Your are a Hero!
+        </slot-demo>
+        <hr>
+        <slot-demos>
+            <template slot="header">
+                <h1>背影</h1>
+            </template>
+            <p>
+                我赶紧拭干了泪，我怕父亲看见，也怕别人看见。
+            </p>
+            <template slot="footer">
+                <h4>作者：朱自清</h4>
+            </template>
+            <p>父亲迈着蹒跚的步伐</p>
+        </slot-demos>
+    </div>
+</body>
+    <script>
+        Vue.component('slot-demo',{
+            template: `
+            <div>
+                <slot></slot>
+            </div>
+            `
+        })
+        Vue.component('slot-demos',{
+            template: `
+            <div>
+                <header>
+                    <slot name="header"></slot>
+                </header>
+                <main>
+                    <slot></slot>
+                </main>
+                <footer>
+                    <slot name="footer"></slot>
+                </footer>
+            </div>
+            `
+        })
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    
+                }
+            }
+        })
+    </script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button-count
+        v-for="item of titles"
+        :key="item.id"
+        :title="item.text"
+        ></button-count>
+    </div>
+</body>
+    <script>
+        Vue.component('button-count',{
+            props: ['title'],
+            data(){
+                return{
+                    count: 0
+                }
+            },
+            template: '<div><button @click="handleAdd">浏览了 {{count}} 次</button><p>文章标题：{{title}}</p></div>',
+            methods: {
+                handleAdd(){
+                    this.count++
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    titles: [
+                        {id: 0, text: '记念刘和珍君'},
+                        {id: 1, text: '孔乙己'},
+                        {id: 2, text: '背影'},
+                    ]
+                }
+            }
+        })
+    </script>
+</html>
