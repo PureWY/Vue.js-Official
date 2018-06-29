@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <todo-list :todos="todos">
+            <template slot-scope="slotProps">
+                <span v-if="slotProps.todo.isComplete">✓</span>
+                {{ slotProps.todo.text }}
+            </template>
+        </todo-list>
+    </div>
+</body>
+    <script>
+        Vue.component('todo-list',{
+            props: ['todos'],
+            template: `
+            <div>
+                <ol>
+                    <li v-for="todo in todos" :key="todo.id">
+                        <slot :todo="todo">
+                            {{todo.text}}
+                        </slot>
+                    </li>
+                </ol>
+            </div>
+            `
+        })
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    todos: [
+                        {text: '洗衣服', isComplete: true},
+                        {text: '打扫房间', isComplete: false}
+                    ]
+                }
+            }
+        })
+    </script>
+</html>

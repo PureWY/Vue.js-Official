@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <post-blog
+            :title="title"
+            :author="author"
+            :content="content"
+        ></post-blog>
+    </div>
+</body>
+    <script>
+        Vue.component('post-blog',{
+            props: ['title','content'],
+            template: `
+            <div>
+                <h1>{{title}}</h1>
+                <h4>作者：{{$attrs.author}}</h4>
+                <p>{{content}}</p>
+            </div>
+            `,
+            data(){
+                return{
+                    author:''
+                }
+            },
+            created () {
+                console.log(this.$attrs)
+            }
+        })
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    title: '纪念刘和珍君',
+                    author: '鲁迅',
+                    content: '我向来是不惮以最坏的恶意来推测中国人的'
+                }
+            },
+        })
+    </script>
+</html>

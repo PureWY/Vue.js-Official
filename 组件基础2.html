@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div :style="{fontSize: postFontSize + 'em'}">
+            <web-title
+                @enlarge-text="bigFont"
+                v-for="item in posts"
+                :key="item.id"
+                :post="item"
+            ></web-title>
+        </div>
+    </div>
+</body>
+    <script>
+        Vue.component('web-title',{
+            props: ['post'],
+            data(){
+                return{
+
+                }
+            },
+            template: `
+            <div>
+                <h3>{{post.text}}</h3>
+                <button @click="handleLarge">放大字体</button>
+            </div>
+            `
+            ,
+            methods: {
+                handleLarge(){
+                    this.$emit('enlarge-text',0.5)
+                }
+            }
+        })
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    posts: [{id: 0, text: '野草'},
+                            {id: 1, text: '狂人日记'},
+                            {id: 2, text: '朝花夕拾'},
+                            ],
+                    postFontSize: 1
+                }
+            },
+            methods: {
+                bigFont(val){
+                    console.log(val)
+                    this.postFontSize += val
+                }
+            }
+        })
+    </script>
+</html>

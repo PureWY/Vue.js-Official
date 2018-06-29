@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <child1
+        :p-child1="child1"
+        :p-child2="child2"
+        @click1="click1"
+        @click2="click2"
+        ></child1>
+    </div>
+</body>
+    <script>
+        Vue.component('child1',{
+            props: ['pChild1'],
+            inheritAttrs: false,
+            template: `
+            <div>
+                <h3>child1:</h3>
+                <p>props: {{pChild1}}</p>
+                <p>$attrs: {{$attrs}}</p>
+                <hr>
+                <child2 v-bind="$attrs" v-on="$listeners"></child2>
+            </div>`,
+            mounted () {
+                this.$emit('click1')
+            }
+        })
+        Vue.component('child2',{
+            props: ['pChild2'],
+            inheritAttrs: false,
+            template: `
+            <div>
+                <h3>child1:</h3>
+                <p>props: {{pChild2}}</p>
+                <p>$attrs: {{$attrs}}</p>
+            </div>
+            `,
+            mounted () {
+                this.$emit('click2')
+            }
+        })
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    child1: '儿子',
+                    child2: '孙子'
+                }
+            },
+            methods: {
+                click1(){
+                    console.log("儿子在调用")
+                },
+                click2(){
+                    console.log("孙子在调用")
+                }
+            }
+        })
+    </script>
+</html>

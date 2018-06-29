@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ol>
+            <li v-for="item of songList" :key="item.id">
+                {{item.id}} : {{item.name}}
+            </li>
+        </ol>
+        <hr>
+        <div v-for="(value,key) of car">
+            {{key}} : {{value}}
+        </div>
+        <button @click="handleAdd">增加一个宽度</button>
+        <hr>
+        <ol>
+            <li v-for="item of numbers">
+                {{item}}
+            </li>
+        </ol>
+    </div>
+</body>
+    <script>
+        new Vue({
+            el: '#app',
+            data () {
+                return {
+                    songList: [
+                        {id: 0, name: '周杰伦'},
+                        {id: 1, name: '林俊杰'},
+                        {id: 2, name: '许嵩'}
+                    ],
+                    car: {
+                        name: 'BMW',
+                        length: '234'
+                    },
+                    quantity: [6,7,8,9,10]
+                }
+            },
+            methods: {
+                handleAdd(){ //向嵌套对象添加响应式属性
+                    // this.$set(this.car,'width',123)
+
+                    //为对象添加多个属性
+                    this.car = Object.assign({},this.car,{
+                        color: 'red',
+                        chinaName: '宝马'
+                    })
+                }
+                
+            },
+            computed: {
+                numbers: function () {
+                    return this.quantity.map((val)=>{
+                        return val*10
+                    })
+                 }
+            }
+        })
+    </script>
+</html>
